@@ -11,16 +11,16 @@ namespace GPACalculator
     {
         private string name;
         private double score = 0;
-        private SortedList<string, double> sortlist = new SortedList<string,double>();
+        private SortedList<double, string> sortlist = new SortedList<double, string>();
         private double min = 0;
         private double max = 0;
         private double gpa = 0;
-        
-        public void getScore(string name,double score)
+
+        public void getScore(string name, double score)
         {
             this.name = name;
             this.score = score;
-            sortlist.Add(name, score);
+            sortlist.Add(score, name);
         }
 
         public double getGpa()
@@ -28,7 +28,7 @@ namespace GPACalculator
             double sum = 0;
             for (int i = 0; i < sortlist.Count; i++)
             {
-                sum = sum + sortlist.Values[i];
+                sum = sum + sortlist.Keys[i];
             }
             gpa = sum / sortlist.Count;
             return gpa;
@@ -36,25 +36,27 @@ namespace GPACalculator
 
         public double getMinScore()
         {
-            min = sortlist.Values.Min();
+            min = sortlist.Keys.Min();
+            Console.WriteLine(min);
             return min;
         }
 
         public double getMaxScore()
         {
-            max = sortlist.Values.Max();
+            max = sortlist.Keys.Max();
+            Console.WriteLine(min);
             return max;
         }
 
         public string getMinName()
         {
-            string minName = sortlist.Keys.Last();
+            string minName = sortlist.Values.First();
             return minName;
         }
 
         public string getMaxName()
         {
-            string maxName = sortlist.Keys.First();
+            string maxName = sortlist.Values.Last();
             return maxName;
         }
     }
